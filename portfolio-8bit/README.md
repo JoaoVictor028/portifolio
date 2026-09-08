@@ -45,6 +45,7 @@ Com o servidor iniciado, abra [http://localhost:4200](http://localhost:4200).
 | --- | --- |
 | `npm start` | Inicia o ambiente de desenvolvimento com recarga automática. |
 | `npm run build` | Gera a versão otimizada para produção em `dist/portfolio-8bit/browser`. |
+| `npm run build:pages` | Gera a versão pronta para o caminho público do GitHub Pages. |
 | `npm test` | Executa os testes unitários. |
 | `npm run watch` | Gera builds contínuos em modo de desenvolvimento. |
 
@@ -97,7 +98,7 @@ npm test
 
 ## Publicação
 
-Após o build, publique o conteúdo da pasta `dist/portfolio-8bit/browser` em um serviço de hospedagem estática. Como a página não depende de uma API própria, não há variáveis de ambiente obrigatórias.
+Para o GitHub Pages deste repositório, execute `npm run build:pages` e publique o conteúdo da pasta `dist/portfolio-8bit/browser` na branch `gh-pages`. Como a página não depende de uma API própria, não há variáveis de ambiente obrigatórias.
 
 ---
 
