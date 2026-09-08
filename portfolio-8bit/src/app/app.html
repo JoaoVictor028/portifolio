@@ -1,0 +1,54 @@
+@if (booting()) {
+  <div class="boot-screen" role="status" aria-live="polite" [attr.aria-label]="content.locale() === 'pt' ? 'Carregando portfólio' : 'Loading portfolio'">
+    <div class="boot-screen__frame">
+      <div class="boot-screen__top"><span>◼ {{ content.locale() === 'pt' ? 'INICIALIZAÇÃO DO SISTEMA' : 'SYSTEM BOOT' }}</span><span>{{ content.locale() === 'pt' ? 'ESC NÃO NECESSÁRIO' : 'ESC NOT REQUIRED' }}</span></div>
+      <div class="boot-screen__content">
+        @for (line of bootLines(); track line) { <p><span>&gt;</span> {{ line }}</p> }
+        <span class="boot-screen__caret" aria-hidden="true"></span>
+      </div>
+      <div class="boot-screen__progress"><i [style.width.%]="bootLines().length * 16.66"></i></div>
+    </div>
+  </div>
+}
+
+<div class="site" [class.site--ready]="isReady()">
+  <a class="skip-link" href="#main-content">{{ content.locale() === 'pt' ? 'Ir para o conteúdo' : 'Skip to content' }}</a>
+  <header class="site-header shell">
+    <a class="site-logo" href="#home" [attr.aria-label]="content.locale() === 'pt' ? 'Voltar ao início' : 'Return to home'" (click)="closeMenu()"><span>&lt;/&gt;</span> JV<span>_</span>DEV</a>
+    <div class="header-actions">
+      <div class="language-switch" role="group" [attr.aria-label]="content.locale() === 'pt' ? 'Seletor de idioma' : 'Language selector'">
+        <button type="button" [class.is-active]="content.locale() === 'pt'" [attr.aria-pressed]="content.locale() === 'pt'" (click)="changeLocale('pt')">PT</button>
+        <button type="button" [class.is-active]="content.locale() === 'en'" [attr.aria-pressed]="content.locale() === 'en'" (click)="changeLocale('en')">EN</button>
+      </div>
+      <button type="button" class="menu-toggle" [attr.aria-expanded]="isMenuOpen()" aria-controls="main-navigation" (click)="toggleMenu()"><span></span><span></span><span></span><b>{{ content.data().nav.menu }}</b></button>
+    </div>
+    <nav id="main-navigation" class="site-nav" [class.site-nav--open]="isMenuOpen()" [attr.aria-label]="content.locale() === 'pt' ? 'Navegação principal' : 'Main navigation'">
+      <a href="#home" (click)="closeMenu()">{{ content.data().nav.home }}</a>
+      <a href="#about" (click)="closeMenu()">{{ content.data().nav.about }}</a>
+      <a href="#stack" (click)="closeMenu()">{{ content.data().nav.stack }}</a>
+      <a href="#credentials" (click)="closeMenu()">{{ content.data().nav.credentials }}</a>
+      <a href="#projects" (click)="closeMenu()">{{ content.data().nav.projects }}</a>
+      <a href="#experience" (click)="closeMenu()">{{ content.data().nav.experience }}</a>
+      <a class="site-nav__contact" href="#contact" (click)="closeMenu()">{{ content.data().nav.contact }} ↗</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <app-hero />
+    <app-about />
+    <app-skills />
+    <app-certifications />
+    <app-projects />
+    <app-experience />
+    <app-terminal />
+    <app-contact />
+  </main>
+
+  <footer class="site-footer shell">
+    <span>PORTFOLIO.EXE</span><span>{{ content.data().footer.buildStatus }} <i></i> {{ content.locale() === 'pt' ? 'ATIVO' : 'ONLINE' }}</span><span>{{ content.data().footer.madeWith }}</span><span>© {{ currentYear }}</span>
+  </footer>
+</div>
+
+@if (easterEggVisible()) {
+  <div class="easter-egg" role="status"><span>↑ ↑ ↓ ↓ ← → ← →</span><b>{{ content.locale() === 'pt' ? 'CÓDIGO ESPECIAL ACEITO' : 'CHEAT CODE ACCEPTED' }}</b><small>{{ content.locale() === 'pt' ? '+1 curiosidade desbloqueada' : '+1 curiosity unlocked' }}</small></div>
+}
